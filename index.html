@@ -4,118 +4,81 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Quantfury · Calc</title>
-
-<!-- PWA Meta Tags -->
-<meta name="application-name" content="QF Calc">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="QF Calc">
 <meta name="theme-color" content="#0d0d0d">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="description" content="Calculadora de liquidación y apalancamiento para Quantfury">
-
-<!-- Manifest inline via blob (no necesita servidor) -->
 <script>
   const manifest = {
-    name: "Quantfury Calculadora",
-    short_name: "QF Calc",
-    description: "Calculadora de liquidación y apalancamiento",
-    start_url: ".",
-    display: "standalone",
-    background_color: "#0d0d0d",
-    theme_color: "#ff9500",
-    orientation: "portrait",
-    icons: [{
-      src: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' fill='%230d0d0d'/%3E%3Crect x='40' y='200' width='180' height='4' fill='%23ff9500'/%3E%3Ctext x='256' y='310' font-family='Arial Black' font-size='200' font-weight='900' fill='%23f0ede8' text-anchor='middle'%3EQF%3C/text%3E%3C/svg%3E",
-      sizes: "512x512",
-      type: "image/svg+xml",
-      purpose: "any maskable"
-    }]
+    name: "Quantfury Calculadora", short_name: "QF Calc",
+    start_url: ".", display: "standalone",
+    background_color: "#0d0d0d", theme_color: "#ff9500",
+    icons: [{ src: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' fill='%230d0d0d'/%3E%3Ctext x='256' y='330' font-family='Arial Black' font-size='210' font-weight='900' fill='%23f0ede8' text-anchor='middle'%3EQF%3C/text%3E%3C/svg%3E", sizes: "512x512", type: "image/svg+xml" }]
   };
-  const blob = new Blob([JSON.stringify(manifest)], {type: 'application/manifest+json'});
-  const manifestURL = URL.createObjectURL(blob);
-  document.write('<link rel="manifest" href="' + manifestURL + '">');
+  const blob = new Blob([JSON.stringify(manifest)], {type:'application/manifest+json'});
+  document.write('<link rel="manifest" href="' + URL.createObjectURL(blob) + '">');
 </script>
-
-<!-- Apple touch icon inline -->
-<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='80' fill='%230d0d0d'/%3E%3Crect x='60' y='220' width='160' height='5' fill='%23ff9500'/%3E%3Ctext x='256' y='330' font-family='Arial Black' font-size='210' font-weight='900' fill='%23f0ede8' text-anchor='middle'%3EQF%3C/text%3E%3C/svg%3E">
-
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='80' fill='%230d0d0d'/%3E%3Ctext x='256' y='330' font-family='Arial Black' font-size='210' font-weight='900' fill='%23f0ede8' text-anchor='middle'%3EQF%3C/text%3E%3C/svg%3E">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600&family=Barlow+Condensed:wght@300;700;900&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 body {
   min-height: 100vh;
   background: #0d0d0d;
-  background-image:
-    radial-gradient(ellipse at 15% 40%, rgba(255,149,0,0.06) 0%, transparent 55%),
-    radial-gradient(ellipse at 85% 15%, rgba(255,45,85,0.04) 0%, transparent 50%);
+  background-image: radial-gradient(ellipse at 15% 40%, rgba(255,149,0,0.06) 0%, transparent 55%),
+                    radial-gradient(ellipse at 85% 15%, rgba(255,45,85,0.04) 0%, transparent 50%);
   font-family: 'IBM Plex Mono', monospace;
   color: #f0ede8;
-  padding: 40px 20px 60px;
-  padding-top: calc(40px + env(safe-area-inset-top));
-  padding-bottom: calc(60px + env(safe-area-inset-bottom));
-  display: flex;
-  justify-content: center;
+  padding: calc(40px + env(safe-area-inset-top)) 20px calc(60px + env(safe-area-inset-bottom));
+  display: flex; justify-content: center;
 }
-
 .wrap { max-width: 640px; width: 100%; }
 
-/* ── HEADER ── */
-.header { margin-bottom: 44px; }
-.header h1 {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 2.8rem; font-weight: 900;
-  letter-spacing: -0.02em; line-height: 1;
-}
+/* HEADER */
+.header { margin-bottom: 36px; }
+.header h1 { font-family: 'Barlow Condensed', sans-serif; font-size: 2.8rem; font-weight: 900; letter-spacing: -0.02em; line-height: 1; }
 .header h1 span { font-weight: 300; color: rgba(240,237,232,0.3); }
 .accent { width: 44px; height: 2px; background: linear-gradient(90deg,#ff9500,transparent); margin: 10px 0 8px; }
 .subtitle { font-size: 0.6rem; color: rgba(240,237,232,0.35); letter-spacing: 0.14em; }
 
-/* ── TOGGLE ── */
+/* MODE SWITCHER */
+.mode-switch { display: flex; gap: 1px; background: rgba(255,255,255,0.06); padding: 1px; border-radius: 2px; margin-bottom: 32px; }
+.mode-btn {
+  flex: 1; padding: 12px 8px; background: transparent; border: none;
+  color: rgba(240,237,232,0.35); font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700; font-size: 0.85rem; letter-spacing: 0.08em;
+  cursor: pointer; transition: all 0.18s; text-align: center; line-height: 1.3;
+}
+.mode-btn.active { background: rgba(255,149,0,0.12); color: #ff9500; }
+.mode-btn small { display: block; font-size: 0.55rem; font-weight: 400; letter-spacing: 0.06em; opacity: 0.6; margin-top: 2px; }
+
+/* DIRECTION TOGGLE */
 .toggle { display: flex; margin-bottom: 32px; border: 1px solid rgba(255,255,255,0.08); }
 .toggle button {
-  flex: 1; padding: 11px 8px;
-  background: transparent;
-  border: none;
-  color: rgba(240,237,232,0.35);
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 700; font-size: 1rem; letter-spacing: 0.1em;
-  cursor: pointer; transition: all 0.18s;
+  flex: 1; padding: 11px 8px; background: transparent; border: none;
+  color: rgba(240,237,232,0.35); font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700; font-size: 1rem; letter-spacing: 0.1em; cursor: pointer; transition: all 0.18s;
 }
 .toggle button.long  { background: #30d158; color: #000; }
 .toggle button.short { background: #ff2d55; color: #000; }
 
-/* ── SECTION LABEL ── */
+/* SECTION LABEL */
 .section-label {
-  font-size: 0.55rem; letter-spacing: 0.18em;
-  color: rgba(255,149,0,0.6);
-  margin-bottom: 16px;
-  display: flex; align-items: center; gap: 10px;
+  font-size: 0.55rem; letter-spacing: 0.18em; color: rgba(255,149,0,0.6);
+  margin-bottom: 16px; display: flex; align-items: center; gap: 10px;
 }
-.section-label::after {
-  content:''; flex:1; height:1px;
-  background: linear-gradient(90deg, rgba(255,149,0,0.2), transparent);
-}
+.section-label::after { content:''; flex:1; height:1px; background: linear-gradient(90deg, rgba(255,149,0,0.2), transparent); }
 
-/* ── INPUTS ── */
+/* INPUTS */
 .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 22px 36px; margin-bottom: 28px; }
-.field label {
-  display: block; font-size: 0.55rem;
-  letter-spacing: 0.14em; color: rgba(240,237,232,0.4);
-  margin-bottom: 7px;
-}
+.field label { display: block; font-size: 0.55rem; letter-spacing: 0.14em; color: rgba(240,237,232,0.4); margin-bottom: 7px; }
 .input-wrap { position: relative; }
-.input-wrap .prefix {
-  position: absolute; left: 0; top: 50%; transform: translateY(-50%);
-  color: rgba(255,149,0,0.65); font-size: 0.8rem; pointer-events: none;
-}
+.input-wrap .prefix { position: absolute; left: 0; top: 50%; transform: translateY(-50%); color: rgba(255,149,0,0.65); font-size: 0.8rem; pointer-events: none; }
 .input-wrap input {
-  background: transparent; border: none;
-  border-bottom: 1px solid rgba(255,255,255,0.12);
-  color: #f0ede8; font-family: 'IBM Plex Mono', monospace;
-  font-size: 1rem; padding: 7px 0 7px 16px;
-  width: 100%; outline: none; transition: border-color 0.2s;
+  background: transparent; border: none; border-bottom: 1px solid rgba(255,255,255,0.12);
+  color: #f0ede8; font-family: 'IBM Plex Mono', monospace; font-size: 1rem;
+  padding: 7px 0 7px 16px; width: 100%; outline: none; transition: border-color 0.2s;
   -moz-appearance: textfield;
 }
 .input-wrap input::-webkit-outer-spin-button,
@@ -123,152 +86,65 @@ body {
 .input-wrap input:focus { border-bottom-color: rgba(255,149,0,0.7); }
 .hint { font-size: 0.54rem; color: rgba(240,237,232,0.18); margin-top: 4px; }
 
-/* ── TP SELECTOR ── */
-.tp-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 6px;
-  margin-bottom: 32px;
-}
+/* TP SELECTOR */
+.tp-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 12px; }
 .tp-btn {
-  padding: 8px 4px;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
-  color: rgba(240,237,232,0.45);
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.65rem; letter-spacing: 0.04em;
-  cursor: pointer; transition: all 0.15s;
-  text-align: center;
+  padding: 8px 4px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+  color: rgba(240,237,232,0.45); font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem; cursor: pointer; transition: all 0.15s; text-align: center;
 }
 .tp-btn:hover { border-color: rgba(255,149,0,0.4); color: rgba(240,237,232,0.8); }
-.tp-btn.active {
-  background: rgba(255,149,0,0.12);
-  border-color: rgba(255,149,0,0.7);
-  color: #ff9500; font-weight: 600;
-}
+.tp-btn.active { background: rgba(255,149,0,0.12); border-color: rgba(255,149,0,0.7); color: #ff9500; font-weight: 600; }
 .tp-note { font-size: 0.56rem; color: rgba(240,237,232,0.25); margin-bottom: 32px; line-height: 1.7; }
 .tp-note strong { color: rgba(255,149,0,0.5); }
 
-/* ── DIVIDER ── */
+/* DIVIDER */
 .divider { height: 1px; background: rgba(255,255,255,0.06); margin: 8px 0 28px; }
 
-/* ── RESULTS ── */
-#results { display: none; }
-
+/* RESULTS SHARED */
 .main-result {
-  padding: 22px 26px; margin-bottom: 18px;
-  border-left: 4px solid #ff9500;
+  padding: 22px 26px; margin-bottom: 18px; border-left: 4px solid #ff9500;
   display: flex; justify-content: space-between; align-items: flex-start;
 }
 .liq-label { font-size: 0.55rem; letter-spacing: 0.14em; color: rgba(240,237,232,0.38); margin-bottom: 7px; }
-.liq-price {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 3rem; font-weight: 700; line-height: 1;
-}
+.liq-price { font-family: 'Barlow Condensed', sans-serif; font-size: 3rem; font-weight: 700; line-height: 1; }
 .liq-sub { font-size: 0.65rem; color: rgba(240,237,232,0.32); margin-top: 6px; }
-
-.badge {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 900; font-size: 1.05rem; letter-spacing: 0.08em;
-  text-align: right;
-}
+.badge { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 1.05rem; letter-spacing: 0.08em; text-align: right; }
 .badge-sub { font-size: 0.52rem; color: rgba(240,237,232,0.28); letter-spacing: 0.1em; margin-top: 2px; }
 
-/* ── METRICS ── */
-.metrics {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 1px; background: rgba(255,255,255,0.05);
-  margin-bottom: 18px;
-}
+.metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: rgba(255,255,255,0.05); margin-bottom: 18px; }
+.metrics.cols3 { grid-template-columns: 1fr 1fr 1fr; }
 .metric { background: #0d0d0d; padding: 16px 18px; }
 .metric-label { font-size: 0.52rem; letter-spacing: 0.1em; color: rgba(240,237,232,0.32); margin-bottom: 7px; }
-.metric-value {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 1.7rem; font-weight: 700; line-height: 1;
-}
+.metric-value { font-family: 'Barlow Condensed', sans-serif; font-size: 1.7rem; font-weight: 700; line-height: 1; }
 .metric-sub { font-size: 0.52rem; color: rgba(240,237,232,0.2); margin-top: 4px; }
-.metric-highlight { color: #ff9500; }
+.hi-orange { color: #ff9500; }
 
-/* ── LEVERAGE BOX ── */
+/* LEV BOX */
 .lev-box {
-  background: rgba(255,149,0,0.05);
-  border: 1px solid rgba(255,149,0,0.2);
-  padding: 18px 22px; margin-bottom: 18px;
-  display: flex; justify-content: space-between; align-items: center;
+  background: rgba(255,149,0,0.05); border: 1px solid rgba(255,149,0,0.2);
+  padding: 18px 22px; margin-bottom: 18px; display: flex; justify-content: space-between; align-items: center;
 }
 .lev-box-label { font-size: 0.6rem; letter-spacing: 0.1em; color: rgba(240,237,232,0.4); }
 .lev-box-sub { font-size: 0.62rem; color: rgba(240,237,232,0.28); margin-top: 4px; }
-.lev-value {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 2.4rem; font-weight: 900; color: #ff9500;
-}
+.lev-value { font-family: 'Barlow Condensed', sans-serif; font-size: 2.4rem; font-weight: 900; }
 
-/* ── TP USAGE BAR ── */
+/* BAR */
 .bar-wrap { margin-bottom: 18px; }
-.bar-label {
-  display: flex; justify-content: space-between;
-  font-size: 0.56rem; color: rgba(240,237,232,0.35);
-  margin-bottom: 7px; letter-spacing: 0.08em;
-}
-.bar-track {
-  height: 6px; background: rgba(255,255,255,0.07);
-  border-radius: 3px; overflow: hidden;
-}
-.bar-fill {
-  height: 100%; border-radius: 3px;
-  transition: width 0.4s ease;
-}
+.bar-label { display: flex; justify-content: space-between; font-size: 0.56rem; color: rgba(240,237,232,0.35); margin-bottom: 7px; letter-spacing: 0.08em; }
+.bar-track { height: 6px; background: rgba(255,255,255,0.07); border-radius: 3px; overflow: hidden; }
+.bar-fill  { height: 100%; border-radius: 3px; transition: width 0.4s ease; }
 
-/* ── MOVE BOX ── */
-.move-box {
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.07);
-  padding: 14px 18px; margin-bottom: 18px;
-  display: flex; justify-content: space-between; align-items: center;
-}
-.move-label { font-size: 0.56rem; letter-spacing: 0.1em; color: rgba(240,237,232,0.32); }
-.move-sub { font-size: 0.62rem; color: rgba(240,237,232,0.3); margin-top: 3px; }
-.move-value {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 1.7rem; font-weight: 700;
-}
-
-/* ── NOTE ── */
-.note {
-  border-left: 2px solid rgba(255,149,0,0.25);
-  padding-left: 14px; font-size: 0.6rem;
-  line-height: 1.8; color: rgba(240,237,232,0.3);
-  margin-bottom: 18px;
-}
-.note strong { color: rgba(255,149,0,0.7); }
-
-/* ── EMPTY ── */
-.empty {
-  text-align: center; padding: 56px 0;
-  color: rgba(240,237,232,0.12);
-  font-size: 0.65rem; letter-spacing: 0.14em;
-}
-
-/* ── TP / SL INPUTS ── */
-.tpsl-grid {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 22px 36px; margin-bottom: 20px;
-}
-.tpsl-result {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 1px; background: rgba(255,255,255,0.05);
-  margin-bottom: 18px;
-}
+/* TP/SL */
+.tpsl-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px 36px; margin-bottom: 20px; }
+.tpsl-result { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: rgba(255,255,255,0.05); margin-bottom: 18px; }
 .tpsl-card { padding: 16px 18px; }
 .tpsl-card.tp-card { background: rgba(48,209,88,0.06); }
 .tpsl-card.sl-card { background: rgba(255,45,85,0.06); }
 .tpsl-card-label { font-size: 0.52rem; letter-spacing: 0.12em; margin-bottom: 8px; }
 .tpsl-card-label.tp { color: rgba(48,209,88,0.7); }
 .tpsl-card-label.sl { color: rgba(255,45,85,0.7); }
-.tpsl-card-price {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 1.5rem; font-weight: 700; line-height: 1; margin-bottom: 6px;
-}
+.tpsl-card-price { font-family: 'Barlow Condensed', sans-serif; font-size: 1.5rem; font-weight: 700; line-height: 1; margin-bottom: 6px; }
 .tpsl-card-price.tp { color: #30d158; }
 .tpsl-card-price.sl { color: #ff2d55; }
 .tpsl-card-row { display: flex; justify-content: space-between; margin-top: 4px; }
@@ -276,27 +152,30 @@ body {
 .tpsl-card-val { font-size: 0.52rem; font-weight: 600; }
 .tpsl-card-val.tp { color: #30d158; }
 .tpsl-card-val.sl { color: #ff2d55; }
-
-/* ── RR BOX ── */
-.rr-box {
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.08);
-  padding: 14px 20px; margin-bottom: 18px;
-  display: flex; justify-content: space-between; align-items: center;
-}
+.rr-box { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); padding: 14px 20px; margin-bottom: 18px; display: flex; justify-content: space-between; align-items: center; }
 .rr-label { font-size: 0.56rem; letter-spacing: 0.1em; color: rgba(240,237,232,0.32); }
 .rr-sub   { font-size: 0.6rem; color: rgba(240,237,232,0.25); margin-top: 3px; }
-.rr-value {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 2rem; font-weight: 900;
-}
+.rr-value { font-family: 'Barlow Condensed', sans-serif; font-size: 2rem; font-weight: 900; }
 
-/* ── FOOTER ── */
-.footer {
-  margin-top: 44px; padding-top: 16px;
-  border-top: 1px solid rgba(255,255,255,0.05);
-  font-size: 0.5rem; color: rgba(240,237,232,0.15); line-height: 1.9;
+/* INVERSE RESULT BOX */
+.inv-result {
+  background: rgba(255,149,0,0.06); border: 1px solid rgba(255,149,0,0.25);
+  border-left: 4px solid #ff9500; padding: 22px 26px; margin-bottom: 18px;
 }
+.inv-result-label { font-size: 0.55rem; letter-spacing: 0.14em; color: rgba(240,237,232,0.38); margin-bottom: 8px; }
+.inv-result-value { font-family: 'Barlow Condensed', sans-serif; font-size: 3rem; font-weight: 700; color: #ff9500; line-height: 1; }
+.inv-result-sub { font-size: 0.65rem; color: rgba(240,237,232,0.32); margin-top: 6px; }
+
+/* NOTE / WARN */
+.note { border-left: 2px solid rgba(255,149,0,0.25); padding-left: 14px; font-size: 0.6rem; line-height: 1.8; color: rgba(240,237,232,0.3); margin-bottom: 18px; }
+.note strong { color: rgba(255,149,0,0.7); }
+.warn-box { background: rgba(255,45,85,0.07); border: 1px solid rgba(255,45,85,0.2); border-left: 3px solid #ff2d55; padding: 12px 16px; margin-bottom: 16px; font-size: 0.6rem; color: rgba(255,45,85,0.85); line-height: 1.7; display: none; }
+
+/* EMPTY */
+.empty { text-align: center; padding: 56px 0; color: rgba(240,237,232,0.25); font-size: 0.65rem; letter-spacing: 0.1em; line-height: 1.8; }
+
+/* FOOTER */
+.footer { margin-top: 44px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.05); font-size: 0.5rem; color: rgba(240,237,232,0.15); line-height: 1.9; }
 </style>
 </head>
 <body>
@@ -306,279 +185,259 @@ body {
   <div class="header">
     <h1>QUANTFURY <span>CALC</span></h1>
     <div class="accent"></div>
-    <p class="subtitle">APALANCAMIENTO EQUIVALENTE · PRECIO DE LIQUIDACIÓN · GESTIÓN DE RIESGO</p>
+    <p class="subtitle">APALANCAMIENTO · LIQUIDACIÓN · GESTIÓN DE RIESGO</p>
   </div>
 
-  <!-- DIRECCIÓN -->
+  <!-- MODE SWITCHER -->
+  <div class="mode-switch">
+    <button class="mode-btn active" id="mode-normal" onclick="setMode('normal')">
+      MODO NORMAL
+      <small>posición → liquidación</small>
+    </button>
+    <button class="mode-btn" id="mode-inverse" onclick="setMode('inverse')">
+      MODO INVERSO
+      <small>liquidación → posición</small>
+    </button>
+  </div>
+
+  <!-- DIRECCIÓN (compartida) -->
   <div class="section-label">DIRECCIÓN DE LA OPERACIÓN</div>
-  <div class="toggle" style="margin-bottom:32px">
+  <div class="toggle">
     <button id="btn-long" class="long" onclick="setDir('long')">▲ LONG — COMPRA</button>
     <button id="btn-short" onclick="setDir('short')">▼ SHORT — VENTA</button>
   </div>
 
-  <!-- DATOS DE CUENTA -->
-  <div class="section-label">DATOS DE TU CUENTA</div>
-  <div class="grid2">
-    <div class="field">
-      <label>SALDO DE CUENTA</label>
-      <div class="input-wrap">
-        <span class="prefix">$</span>
-        <input type="number" id="balance" placeholder="500.00" oninput="calc()">
+  <!-- ══════════════════════════════════ -->
+  <!--           MODO NORMAL             -->
+  <!-- ══════════════════════════════════ -->
+  <div id="panel-normal">
+    <div class="section-label">DATOS DE TU CUENTA</div>
+    <div class="grid2">
+      <div class="field">
+        <label>SALDO DE CUENTA</label>
+        <div class="input-wrap"><span class="prefix">$</span><input type="number" id="n-balance" placeholder="500.00" oninput="calcNormal()"></div>
+        <div class="hint">Tu balance actual en USD</div>
       </div>
-      <div class="hint">Tu balance actual en USD</div>
-    </div>
-    <div class="field">
-      <label>TAMAÑO DE POSICIÓN</label>
-      <div class="input-wrap">
-        <span class="prefix">$</span>
-        <input type="number" id="posSize" placeholder="3000.00" oninput="calc()">
+      <div class="field">
+        <label>TAMAÑO DE POSICIÓN</label>
+        <div class="input-wrap"><span class="prefix">$</span><input type="number" id="n-posSize" placeholder="3000.00" oninput="calcNormal()"></div>
+        <div class="hint">USD que abrís en la operación</div>
       </div>
-      <div class="hint">Cuánto USD abrís en la operación</div>
-    </div>
-    <div class="field">
-      <label id="price-label">PRECIO DE COMPRA</label>
-      <div class="input-wrap">
-        <span class="prefix">$</span>
-        <input type="number" id="entryPrice" placeholder="0.00" oninput="calc()">
-      </div>
-      <div class="hint">Precio de entrada del activo</div>
-    </div>
-  </div>
-
-  <!-- TRADING POWER -->
-  <div class="section-label">SELECCIONÁ TU TRADING POWER</div>
-  <div class="tp-grid" id="tp-grid">
-    <!-- generado por JS -->
-  </div>
-  <div class="tp-note">
-    <strong>¿Qué es el Trading Power?</strong> Es el límite máximo de USD que podés asignar a posiciones.
-    Se elige al configurar tu cuenta y permanece fijo sin importar las ganancias o pérdidas.
-    Con $500 de saldo podés acceder a $10,000 de TP (equivalente a 20x máximo posible).
-    <br>El apalancamiento <em>real</em> lo determina cuánto de ese TP usás en relación a tu saldo.
-  </div>
-
-  <div class="divider"></div>
-
-  <!-- RESULTADOS -->
-  <div id="results">
-
-    <div class="section-label">APALANCAMIENTO EQUIVALENTE</div>
-
-    <!-- LEV BOX — el número más importante -->
-    <div class="lev-box" id="lev-box">
-      <div>
-        <div class="lev-box-label">TU APALANCAMIENTO REAL EN ESTA OPERACIÓN</div>
-        <div class="lev-box-sub" id="lev-desc">—</div>
-      </div>
-      <div class="lev-value" id="lev-value">—</div>
-    </div>
-
-    <!-- USO DEL TP -->
-    <div class="bar-wrap">
-      <div class="bar-label">
-        <span>USO DEL TRADING POWER</span>
-        <span id="tp-pct-label">0%</span>
-      </div>
-      <div class="bar-track">
-        <div class="bar-fill" id="tp-bar" style="width:0%"></div>
+      <div class="field">
+        <label id="n-price-label">PRECIO DE COMPRA</label>
+        <div class="input-wrap"><span class="prefix">$</span><input type="number" id="n-entryPrice" placeholder="0.00" oninput="calcNormal()"></div>
+        <div class="hint">Precio de entrada del activo</div>
       </div>
     </div>
 
-    <div class="metrics" style="margin-bottom:28px">
-      <div class="metric">
-        <div class="metric-label">POSICIÓN ABIERTA</div>
-        <div class="metric-value" id="m-pos">—</div>
-        <div class="metric-sub">tamaño total</div>
-      </div>
-      <div class="metric">
-        <div class="metric-label">TRADING POWER RESTANTE</div>
-        <div class="metric-value" id="m-tp-rest">—</div>
-        <div class="metric-sub">podés abrir más</div>
-      </div>
-      <div class="metric">
-        <div class="metric-label">MAX APALANCAMIENTO TP</div>
-        <div class="metric-value metric-highlight" id="m-max-lev">—</div>
-        <div class="metric-sub">TP / saldo</div>
-      </div>
-      <div class="metric">
-        <div class="metric-label">% SALDO EN RIESGO</div>
-        <div class="metric-value" id="m-risk-pct">—</div>
-        <div class="metric-sub">si el precio va a 0</div>
-      </div>
+    <div class="section-label">TRADING POWER</div>
+    <div class="tp-grid" id="n-tp-grid"></div>
+    <div class="tp-note">
+      <strong>Trading Power</strong> = límite máximo de posición disponible. No afecta el precio de liquidación pero define tu apalancamiento máximo posible.
     </div>
 
     <div class="divider"></div>
-    <div class="section-label" style="margin-top:28px">PRECIO DE LIQUIDACIÓN ESTIMADO</div>
 
-    <div class="main-result" id="main-result">
-      <div>
-        <div class="liq-label">LIQUIDACIÓN (pérdidas = saldo completo)</div>
-        <div class="liq-price" id="liq-price">$0.00</div>
-        <div class="liq-sub" id="liq-sub">—</div>
-      </div>
-      <div>
-        <div class="badge" id="risk-badge">—</div>
-        <div class="badge-sub">NIVEL DE RIESGO</div>
-      </div>
-    </div>
+    <div id="n-results" style="display:none">
 
-    <div class="metrics">
-      <div class="metric">
-        <div class="metric-label">CAÍDA MÁXIMA TOLERADA</div>
-        <div class="metric-value" id="m-move">—</div>
-        <div class="metric-sub">movimiento en tu contra</div>
-      </div>
-      <div class="metric">
-        <div class="metric-label">VARIACIÓN PORCENTUAL</div>
-        <div class="metric-value" id="m-move-pct">—</div>
-        <div class="metric-sub">% desde entrada</div>
-      </div>
-    </div>
-
-    <div class="note" style="margin-top:18px">
-      <strong>IMPORTANTE · </strong>
-      Quantfury no muestra precio de liquidación en la app porque el sistema no hace <em>margin calls</em>.
-      La liquidación ocurre cuando las pérdidas acumuladas de <em>todas</em> tus posiciones abiertas
-      igualan tu saldo completo. Este precio es una estimación asumiendo que esta es tu única posición activa.
-      Con múltiples posiciones, el riesgo se distribuye.
-    </div>
-
-    <!-- TP / SL -->
-    <div class="divider"></div>
-    <div class="section-label" style="margin-top:28px">TAKE PROFIT &amp; STOP LOSS</div>
-
-    <div class="tpsl-grid">
-      <div class="field">
-        <label style="color:rgba(48,209,88,0.7)">TAKE PROFIT — PRECIO</label>
-        <div class="input-wrap">
-          <span class="prefix" style="color:rgba(48,209,88,0.65)">$</span>
-          <input type="number" id="tp-price" placeholder="0.00" oninput="calc()" style="border-bottom-color:rgba(48,209,88,0.2)">
-        </div>
-        <div class="hint">Precio al que cerrás con ganancia</div>
-      </div>
-      <div class="field">
-        <label style="color:rgba(255,45,85,0.7)">STOP LOSS — PRECIO</label>
-        <div class="input-wrap">
-          <span class="prefix" style="color:rgba(255,45,85,0.65)">$</span>
-          <input type="number" id="sl-price" placeholder="0.00" oninput="calc()" style="border-bottom-color:rgba(255,45,85,0.2)">
-        </div>
-        <div class="hint">Precio al que cerrás con pérdida</div>
-      </div>
-    </div>
-
-    <div id="tpsl-results" style="display:none">
-      <div class="tpsl-result">
-        <!-- TP card -->
-        <div class="tpsl-card tp-card">
-          <div class="tpsl-card-label tp">✦ TAKE PROFIT</div>
-          <div class="tpsl-card-price tp" id="tp-price-display">—</div>
-          <div class="tpsl-card-row">
-            <span class="tpsl-card-key">Ganancia USD</span>
-            <span class="tpsl-card-val tp" id="tp-usd">—</span>
-          </div>
-          <div class="tpsl-card-row">
-            <span class="tpsl-card-key">% sobre saldo</span>
-            <span class="tpsl-card-val tp" id="tp-pct-bal">—</span>
-          </div>
-          <div class="tpsl-card-row">
-            <span class="tpsl-card-key">Movimiento precio</span>
-            <span class="tpsl-card-val tp" id="tp-move-pct">—</span>
-          </div>
-          <div class="tpsl-card-row">
-            <span class="tpsl-card-key">Nuevo saldo</span>
-            <span class="tpsl-card-val tp" id="tp-new-bal">—</span>
-          </div>
-        </div>
-        <!-- SL card -->
-        <div class="tpsl-card sl-card">
-          <div class="tpsl-card-label sl">✦ STOP LOSS</div>
-          <div class="tpsl-card-price sl" id="sl-price-display">—</div>
-          <div class="tpsl-card-row">
-            <span class="tpsl-card-key">Pérdida USD</span>
-            <span class="tpsl-card-val sl" id="sl-usd">—</span>
-          </div>
-          <div class="tpsl-card-row">
-            <span class="tpsl-card-key">% sobre saldo</span>
-            <span class="tpsl-card-val sl" id="sl-pct-bal">—</span>
-          </div>
-          <div class="tpsl-card-row">
-            <span class="tpsl-card-key">Movimiento precio</span>
-            <span class="tpsl-card-val sl" id="sl-move-pct">—</span>
-          </div>
-          <div class="tpsl-card-row">
-            <span class="tpsl-card-key">Nuevo saldo</span>
-            <span class="tpsl-card-val sl" id="sl-new-bal">—</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Ratio Riesgo/Recompensa -->
-      <div class="rr-box">
+      <div class="section-label">APALANCAMIENTO</div>
+      <div class="lev-box">
         <div>
-          <div class="rr-label">RATIO RIESGO / RECOMPENSA</div>
-          <div class="rr-sub" id="rr-sub">—</div>
+          <div class="lev-box-label">APALANCAMIENTO REAL EN ESTA OPERACIÓN</div>
+          <div class="lev-box-sub" id="n-lev-desc">—</div>
         </div>
-        <div class="rr-value" id="rr-value">—</div>
+        <div class="lev-value" id="n-lev-value">—</div>
+      </div>
+      <div class="bar-wrap">
+        <div class="bar-label"><span>USO DEL TRADING POWER</span><span id="n-tp-pct-label">0%</span></div>
+        <div class="bar-track"><div class="bar-fill" id="n-tp-bar" style="width:0%"></div></div>
+      </div>
+      <div class="metrics cols3" style="margin-bottom:28px">
+        <div class="metric"><div class="metric-label">POSICIÓN ABIERTA</div><div class="metric-value" id="n-m-pos">—</div><div class="metric-sub">tamaño total</div></div>
+        <div class="metric"><div class="metric-label">TP RESTANTE</div><div class="metric-value" id="n-m-tp-rest">—</div><div class="metric-sub">podés abrir más</div></div>
+        <div class="metric"><div class="metric-label">MÁX. APALANCAMIENTO</div><div class="metric-value hi-orange" id="n-m-max-lev">—</div><div class="metric-sub">TP / saldo</div></div>
       </div>
 
-      <div class="note">
-        <strong>LECTURA · </strong>
-        Un ratio R/R de 2:1 significa que por cada $1 que arriesgás con el SL, podés ganar $2 con el TP.
-        Se recomienda operar con R/R mínimo de 1.5:1 o 2:1 para que la estrategia sea rentable a largo plazo
-        aunque solo aciertes el 40–50% de las operaciones.
+      <div class="divider"></div>
+      <div class="section-label" style="margin-top:28px">PRECIO DE LIQUIDACIÓN ESTIMADO</div>
+      <div class="main-result" id="n-main-result">
+        <div>
+          <div class="liq-label">LIQUIDACIÓN (pérdidas = saldo completo)</div>
+          <div class="liq-price" id="n-liq-price">$0.00</div>
+          <div class="liq-sub" id="n-liq-sub">—</div>
+        </div>
+        <div>
+          <div class="badge" id="n-risk-badge">—</div>
+          <div class="badge-sub">NIVEL DE RIESGO</div>
+        </div>
+      </div>
+      <div class="metrics">
+        <div class="metric"><div class="metric-label">CAÍDA MÁXIMA TOLERADA</div><div class="metric-value" id="n-m-move">—</div><div class="metric-sub">movimiento en tu contra</div></div>
+        <div class="metric"><div class="metric-label">VARIACIÓN PORCENTUAL</div><div class="metric-value" id="n-m-move-pct">—</div><div class="metric-sub">% desde entrada</div></div>
+      </div>
+      <div class="note" style="margin-top:18px">
+        <strong>IMPORTANTE · </strong>Quantfury no muestra precio de liquidación porque no hace <em>margin calls</em>. La liquidación ocurre cuando las pérdidas de <em>todas</em> tus posiciones igualan tu saldo. Este cálculo asume posición única.
+      </div>
+
+      <div class="divider"></div>
+      <div class="section-label" style="margin-top:28px">TAKE PROFIT &amp; STOP LOSS</div>
+      <div class="tpsl-grid">
+        <div class="field">
+          <label style="color:rgba(48,209,88,0.7)">TAKE PROFIT — PRECIO</label>
+          <div class="input-wrap"><span class="prefix" style="color:rgba(48,209,88,0.65)">$</span><input type="number" id="n-tp-price" placeholder="0.00" oninput="calcNormal()" style="border-bottom-color:rgba(48,209,88,0.2)"></div>
+          <div class="hint">Precio al que cerrás con ganancia</div>
+        </div>
+        <div class="field">
+          <label style="color:rgba(255,45,85,0.7)">STOP LOSS — PRECIO</label>
+          <div class="input-wrap"><span class="prefix" style="color:rgba(255,45,85,0.65)">$</span><input type="number" id="n-sl-price" placeholder="0.00" oninput="calcNormal()" style="border-bottom-color:rgba(255,45,85,0.2)"></div>
+          <div class="hint">Precio al que cerrás con pérdida</div>
+        </div>
+      </div>
+      <div id="n-tpsl-results" style="display:none">
+        <div class="warn-box" id="n-sl-warn">⚠ Tu Stop Loss está muy cerca del precio de liquidación. Considerá reducir el tamaño de la posición.</div>
+        <div class="tpsl-result">
+          <div class="tpsl-card tp-card">
+            <div class="tpsl-card-label tp">✦ TAKE PROFIT</div>
+            <div class="tpsl-card-price tp" id="n-tp-display">—</div>
+            <div class="tpsl-card-row"><span class="tpsl-card-key">Ganancia USD</span><span class="tpsl-card-val tp" id="n-tp-usd">—</span></div>
+            <div class="tpsl-card-row"><span class="tpsl-card-key">% sobre saldo</span><span class="tpsl-card-val tp" id="n-tp-pct-b">—</span></div>
+            <div class="tpsl-card-row"><span class="tpsl-card-key">Movimiento</span><span class="tpsl-card-val tp" id="n-tp-mov">—</span></div>
+            <div class="tpsl-card-row"><span class="tpsl-card-key">Nuevo saldo</span><span class="tpsl-card-val tp" id="n-tp-newbal">—</span></div>
+          </div>
+          <div class="tpsl-card sl-card">
+            <div class="tpsl-card-label sl">✦ STOP LOSS</div>
+            <div class="tpsl-card-price sl" id="n-sl-display">—</div>
+            <div class="tpsl-card-row"><span class="tpsl-card-key">Pérdida USD</span><span class="tpsl-card-val sl" id="n-sl-usd">—</span></div>
+            <div class="tpsl-card-row"><span class="tpsl-card-key">% sobre saldo</span><span class="tpsl-card-val sl" id="n-sl-pct-b">—</span></div>
+            <div class="tpsl-card-row"><span class="tpsl-card-key">Movimiento</span><span class="tpsl-card-val sl" id="n-sl-mov">—</span></div>
+            <div class="tpsl-card-row"><span class="tpsl-card-key">Nuevo saldo</span><span class="tpsl-card-val sl" id="n-sl-newbal">—</span></div>
+          </div>
+        </div>
+        <div class="rr-box">
+          <div><div class="rr-label">RATIO RIESGO / RECOMPENSA</div><div class="rr-sub" id="n-rr-sub">—</div></div>
+          <div class="rr-value" id="n-rr-value">—</div>
+        </div>
+        <div class="note"><strong>R/R · </strong>Un ratio de 2:1 significa que ganás $2 por cada $1 que arriesgás. Se recomienda mínimo 1.5:1 para que la estrategia sea rentable aunque solo aciertes el 40–50% de las veces.</div>
       </div>
     </div>
+    <div class="empty" id="n-empty">INGRESÁ LOS DATOS PARA CALCULAR</div>
   </div>
 
-  <div class="empty" id="empty">← INGRESÁ TOS DATOS PARA CALCULAR</div>
+  <!-- ══════════════════════════════════ -->
+  <!--           MODO INVERSO            -->
+  <!-- ══════════════════════════════════ -->
+  <div id="panel-inverse" style="display:none">
+
+    <div class="note">
+      <strong>MODO INVERSO · </strong>Decidís primero hasta dónde tolerás que llegue el precio antes de liquidarte, y la calculadora te dice cuál es el tamaño máximo de posición que podés abrir.
+    </div>
+
+    <div class="section-label">PARÁMETROS</div>
+    <div class="grid2">
+      <div class="field">
+        <label>SALDO DE CUENTA</label>
+        <div class="input-wrap"><span class="prefix">$</span><input type="number" id="i-balance" placeholder="500.00" oninput="calcInverse()"></div>
+        <div class="hint">Tu balance actual en USD</div>
+      </div>
+      <div class="field">
+        <label id="i-price-label">PRECIO DE COMPRA</label>
+        <div class="input-wrap"><span class="prefix">$</span><input type="number" id="i-entryPrice" placeholder="0.00" oninput="calcInverse()"></div>
+        <div class="hint">Precio de entrada del activo</div>
+      </div>
+      <div class="field" style="grid-column: 1 / -1">
+        <label id="i-liq-label">PRECIO DE LIQUIDACIÓN QUE TOLERÁS</label>
+        <div class="input-wrap"><span class="prefix">$</span><input type="number" id="i-liqPrice" placeholder="0.00" oninput="calcInverse()"></div>
+        <div class="hint">Si el precio llega acá, perdés todo el saldo</div>
+      </div>
+    </div>
+
+    <div class="section-label">TRADING POWER</div>
+    <div class="tp-grid" id="i-tp-grid"></div>
+    <div class="tp-note">El resultado no puede superar tu Trading Power disponible.</div>
+
+    <div class="divider"></div>
+
+    <div id="i-results" style="display:none">
+
+      <div class="section-label">TAMAÑO DE POSICIÓN RECOMENDADO</div>
+      <div class="inv-result">
+        <div class="inv-result-label">PODÉS ABRIR UNA POSICIÓN DE HASTA</div>
+        <div class="inv-result-value" id="i-pos-value">—</div>
+        <div class="inv-result-sub" id="i-pos-sub">—</div>
+      </div>
+
+      <div class="warn-box" id="i-tp-warn">
+        ⚠ El tamaño calculado supera tu Trading Power ($<span id="i-tp-warn-val">0</span>). La posición quedó limitada a ese valor. Para abrir la posición completa necesitás un TP mayor.
+      </div>
+
+      <div class="metrics cols3" style="margin-bottom:18px">
+        <div class="metric"><div class="metric-label">APALANCAMIENTO</div><div class="metric-value hi-orange" id="i-lev">—</div><div class="metric-sub">posición / saldo</div></div>
+        <div class="metric"><div class="metric-label">DISTANCIA A LIQ.</div><div class="metric-value" id="i-dist">—</div><div class="metric-sub">% desde entrada</div></div>
+        <div class="metric"><div class="metric-label">USO DEL TP</div><div class="metric-value" id="i-tp-uso">—</div><div class="metric-sub">de tu límite</div></div>
+      </div>
+
+      <div class="bar-wrap">
+        <div class="bar-label"><span>USO DEL TRADING POWER</span><span id="i-tp-pct-label">0%</span></div>
+        <div class="bar-track"><div class="bar-fill" id="i-tp-bar" style="width:0%"></div></div>
+      </div>
+
+      <div class="metrics">
+        <div class="metric"><div class="metric-label">PÉRDIDA SI LLEGA A LIQ.</div><div class="metric-value" id="i-max-loss">—</div><div class="metric-sub">= saldo completo</div></div>
+        <div class="metric"><div class="metric-label">MOVIMIENTO DEL PRECIO</div><div class="metric-value" id="i-price-move">—</div><div class="metric-sub">hasta liquidación</div></div>
+      </div>
+
+      <div class="divider"></div>
+      <div class="section-label" style="margin-top:28px">TAKE PROFIT &amp; STOP LOSS</div>
+      <div class="tpsl-grid">
+        <div class="field">
+          <label style="color:rgba(48,209,88,0.7)">TAKE PROFIT — PRECIO</label>
+          <div class="input-wrap"><span class="prefix" style="color:rgba(48,209,88,0.65)">$</span><input type="number" id="i-tp-price" placeholder="0.00" oninput="calcInverse()" style="border-bottom-color:rgba(48,209,88,0.2)"></div>
+          <div class="hint">Precio al que cerrás con ganancia</div>
+        </div>
+        <div class="field">
+          <label style="color:rgba(255,45,85,0.7)">STOP LOSS — PRECIO</label>
+          <div class="input-wrap"><span class="prefix" style="color:rgba(255,45,85,0.65)">$</span><input type="number" id="i-sl-price" placeholder="0.00" oninput="calcInverse()" style="border-bottom-color:rgba(255,45,85,0.2)"></div>
+          <div class="hint">Precio al que cerrás con pérdida</div>
+        </div>
+      </div>
+      <div id="i-tpsl-results" style="display:none">
+        <div class="tpsl-result">
+          <div class="tpsl-card tp-card">
+            <div class="tpsl-card-label tp">✦ TAKE PROFIT</div>
+            <div class="tpsl-card-price tp" id="i-tp-display">—</div>
+            <div class="tpsl-card-row"><span class="tpsl-card-key">Ganancia USD</span><span class="tpsl-card-val tp" id="i-tp-usd">—</span></div>
+            <div class="tpsl-card-row"><span class="tpsl-card-key">% sobre saldo</span><span class="tpsl-card-val tp" id="i-tp-pct-b">—</span></div>
+            <div class="tpsl-card-row"><span class="tpsl-card-key">Movimiento</span><span class="tpsl-card-val tp" id="i-tp-mov">—</span></div>
+            <div class="tpsl-card-row"><span class="tpsl-card-key">Nuevo saldo</span><span class="tpsl-card-val tp" id="i-tp-newbal">—</span></div>
+          </div>
+          <div class="tpsl-card sl-card">
+            <div class="tpsl-card-label sl">✦ STOP LOSS</div>
+            <div class="tpsl-card-price sl" id="i-sl-display">—</div>
+            <div class="tpsl-card-row"><span class="tpsl-card-key">Pérdida USD</span><span class="tpsl-card-val sl" id="i-sl-usd">—</span></div>
+            <div class="tpsl-card-row"><span class="tpsl-card-key">% sobre saldo</span><span class="tpsl-card-val sl" id="i-sl-pct-b">—</span></div>
+            <div class="tpsl-card-row"><span class="tpsl-card-key">Movimiento</span><span class="tpsl-card-val sl" id="i-sl-mov">—</span></div>
+            <div class="tpsl-card-row"><span class="tpsl-card-key">Nuevo saldo</span><span class="tpsl-card-val sl" id="i-sl-newbal">—</span></div>
+          </div>
+        </div>
+        <div class="rr-box">
+          <div><div class="rr-label">RATIO RIESGO / RECOMPENSA</div><div class="rr-sub" id="i-rr-sub">—</div></div>
+          <div class="rr-value" id="i-rr-value">—</div>
+        </div>
+        <div class="note"><strong>R/R · </strong>Un ratio de 2:1 significa que ganás $2 por cada $1 que arriesgás. Se recomienda mínimo 1.5:1 para que la estrategia sea rentable aunque solo aciertes el 40–50% de las veces.</div>
+      </div>
+    </div>
+    <div class="empty" id="i-empty">INGRESÁ LOS DATOS PARA CALCULAR</div>
+  </div>
 
   <div class="footer">
-    ⚠ Calculadora orientativa basada en la lógica pública de Quantfury. Los precios reales de liquidación
-    pueden variar según spread, volatilidad y múltiples posiciones simultáneas. No constituye asesoramiento financiero.
+    ⚠ Calculadora orientativa. Los precios reales pueden variar según spread, volatilidad y múltiples posiciones simultáneas. No constituye asesoramiento financiero.
   </div>
-
 </div>
 
 <script>
-// ── Tabla oficial de Trading Power ──
-const TP_LEVELS = [
-  { tp: 1000,    minDeposit: 50   },
-  { tp: 2000,    minDeposit: 100  },
-  { tp: 6000,    minDeposit: 300  },
-  { tp: 10000,   minDeposit: 500  },
-  { tp: 20000,   minDeposit: 1000 },
-  { tp: 40000,   minDeposit: 2000 },
-  { tp: 100000,  minDeposit: 5000 },
-  { tp: 200000,  minDeposit: 10000},
-  { tp: 300000,  minDeposit: 15000},
-  { tp: 400000,  minDeposit: 20000},
-  { tp: 500000,  minDeposit: 25000},
-  { tp: 1000000, minDeposit: 50000},
-];
-
-let direction = "long";
-let selectedTP = 10000;
-
-// ── Render TP buttons ──
-function renderTPGrid() {
-  const grid = document.getElementById("tp-grid");
-  grid.innerHTML = "";
-  TP_LEVELS.forEach(({ tp }) => {
-    const btn = document.createElement("button");
-    btn.className = "tp-btn" + (tp === selectedTP ? " active" : "");
-    btn.textContent = tp >= 1000000 ? "$1M" : tp >= 1000 ? "$" + (tp/1000) + "K" : "$" + tp;
-    btn.onclick = () => { selectedTP = tp; renderTPGrid(); calc(); };
-    grid.appendChild(btn);
-  });
-}
-
-function setDir(d) {
-  direction = d;
-  document.getElementById("btn-long").className  = d === "long"  ? "long"  : "";
-  document.getElementById("btn-short").className = d === "short" ? "short" : "";
-  document.getElementById("price-label").textContent = d === "long" ? "PRECIO DE COMPRA" : "PRECIO DE VENTA";
-  calc();
-}
+const TP_LEVELS = [1000,2000,6000,10000,20000,40000,100000,200000,300000,400000,500000,1000000];
+let direction   = "long";
+let selectedTP  = 10000;
 
 function fmt(n, dec=2) {
   if (n == null || isNaN(n)) return "—";
@@ -589,259 +448,230 @@ function fmtPct(n, dec=2) {
   return fmt(n, dec) + "%";
 }
 
-function calc() {
-  const B  = parseFloat(document.getElementById("balance").value);
-  const PS = parseFloat(document.getElementById("posSize").value);
-  const EP = parseFloat(document.getElementById("entryPrice").value);
-  const TP = selectedTP;
-
-  const results = document.getElementById("results");
-  const empty   = document.getElementById("empty");
-
-  if (!B || !PS || !EP || B<=0 || PS<=0 || EP<=0) {
-    results.style.display = "none";
-    empty.style.display   = "block";
-    return;
-  }
-
-  // ── APALANCAMIENTO REAL ──
-  // Según Quantfury: leverage = positionSize / accountBalance
-  const realLev = PS / B;
-
-  // ── APALANCAMIENTO MÁXIMO POSIBLE CON ESTE TP ──
-  // Si usaras todo el TP con este saldo
-  const maxLev = TP / B;
-
-  // ── USO DEL TP ──
-  const tpUsed = Math.min(PS, TP);
-  const tpPct  = (tpUsed / TP) * 100;
-  const tpRest = Math.max(0, TP - PS);
-
-  // ── LIQUIDACIÓN ──
-  // La liquidación ocurre cuando: pérdida = saldo completo
-  // pérdida = posición * (|ΔP| / EP)  →  B = PS * (|ΔP| / EP)
-  // |ΔP| = B * EP / PS
-  const priceMove    = (B * EP) / PS;
-  const movePct      = (priceMove / EP) * 100;
-  const liqPrice     = direction === "long" ? EP - priceMove : EP + priceMove;
-  const distPct      = Math.abs((liqPrice - EP) / EP) * 100;
-
-  const riskLevel = distPct < 3  ? "CRÍTICO"  :
-                    distPct < 10 ? "ALTO"     :
-                    distPct < 25 ? "MODERADO" : "BAJO";
-  const riskColor = distPct < 3  ? "#ff2d55" :
-                    distPct < 10 ? "#ff9500" :
-                    distPct < 25 ? "#ffd60a" : "#30d158";
-
-  // ── Actualizar UI ──
-
-  // Apalancamiento
-  document.getElementById("lev-value").textContent = fmt(realLev,2) + "x";
-  document.getElementById("lev-desc").textContent  =
-    `Abrís $${fmt(PS)} con $${fmt(B)} de saldo → ${fmt(realLev,1)}:1`;
-
-  // Color según nivel
-  const levColor = realLev > maxLev * 0.8 ? "#ff2d55" :
-                   realLev > maxLev * 0.5 ? "#ff9500" :
-                   realLev > 5            ? "#ffd60a" : "#30d158";
-  document.getElementById("lev-value").style.color = levColor;
-
-  // Barra TP
-  const barColor = tpPct > 90 ? "#ff2d55" : tpPct > 60 ? "#ff9500" : "#30d158";
-  document.getElementById("tp-bar").style.width      = Math.min(tpPct, 100) + "%";
-  document.getElementById("tp-bar").style.background = barColor;
-  document.getElementById("tp-pct-label").textContent = fmtPct(tpPct, 1);
-
-  // Métricas superiores
-  document.getElementById("m-pos").textContent     = "$" + fmt(PS);
-  document.getElementById("m-tp-rest").textContent = "$" + fmt(tpRest);
-  document.getElementById("m-max-lev").textContent = fmt(maxLev,1) + "x";
-  document.getElementById("m-risk-pct").textContent= "100%"; // siempre riesgo total del saldo
-
-  // Liquidación
-  const mr = document.getElementById("main-result");
-  mr.style.borderLeftColor = riskColor;
-  mr.style.background      = riskColor + "0d";
-
-  document.getElementById("liq-price").textContent = "$" + fmt(liqPrice);
-  document.getElementById("liq-price").style.color = riskColor;
-  document.getElementById("liq-sub").textContent   =
-    (direction === "long" ? "↓ caída de " : "↑ suba de ") + fmtPct(distPct) + " desde $" + fmt(EP);
-
-  document.getElementById("risk-badge").textContent  = riskLevel;
-  document.getElementById("risk-badge").style.color  = riskColor;
-
-  document.getElementById("m-move").textContent     = "$" + fmt(priceMove);
-  document.getElementById("m-move").style.color     = riskColor;
-  document.getElementById("m-move-pct").textContent = fmtPct(movePct);
-  document.getElementById("m-move-pct").style.color = riskColor;
-
-  results.style.display = "block";
-  empty.style.display   = "none";
-
-  // ── TP / SL ──
-  calcTPSL(B, PS, EP);
+// ── Mode ──
+function setMode(mode) {
+  document.getElementById("mode-normal").className  = "mode-btn" + (mode==="normal"  ? " active" : "");
+  document.getElementById("mode-inverse").className = "mode-btn" + (mode==="inverse" ? " active" : "");
+  document.getElementById("panel-normal").style.display  = mode==="normal"  ? "block" : "none";
+  document.getElementById("panel-inverse").style.display = mode==="inverse" ? "block" : "none";
 }
 
-function calcTPSL(B, PS, EP) {
-  const tpPrice = parseFloat(document.getElementById("tp-price").value);
-  const slPrice = parseFloat(document.getElementById("sl-price").value);
-  const tpslDiv = document.getElementById("tpsl-results");
+// ── Direction ──
+function setDir(d) {
+  direction = d;
+  document.getElementById("btn-long").className  = d==="long"  ? "long"  : "";
+  document.getElementById("btn-short").className = d==="short" ? "short" : "";
+  const pl = d==="long" ? "PRECIO DE COMPRA" : "PRECIO DE VENTA";
+  document.getElementById("n-price-label").textContent = pl;
+  document.getElementById("i-price-label").textContent = pl;
+  document.getElementById("i-liq-label").textContent   = d==="long"
+    ? "PRECIO DE LIQUIDACIÓN QUE TOLERÁS (mínimo)"
+    : "PRECIO DE LIQUIDACIÓN QUE TOLERÁS (máximo)";
+  calcNormal();
+  calcInverse();
+}
 
-  const hasTP = tpPrice > 0 && !isNaN(tpPrice);
-  const hasSL = slPrice > 0 && !isNaN(slPrice);
+// ── TP Grids ──
+function renderTPGrids() {
+  ["n-tp-grid","i-tp-grid"].forEach(id => {
+    const grid = document.getElementById(id);
+    grid.innerHTML = "";
+    TP_LEVELS.forEach(tp => {
+      const btn = document.createElement("button");
+      btn.className = "tp-btn" + (tp===selectedTP ? " active" : "");
+      btn.textContent = tp>=1000000 ? "$1M" : "$"+(tp/1000)+"K";
+      btn.onclick = () => { selectedTP=tp; renderTPGrids(); calcNormal(); calcInverse(); };
+      grid.appendChild(btn);
+    });
+  });
+}
 
-  if (!hasTP && !hasSL) { tpslDiv.style.display = "none"; return; }
-  tpslDiv.style.display = "block";
+// ════════════════════
+//    MODO NORMAL
+// ════════════════════
+function calcNormal() {
+  const B  = parseFloat(document.getElementById("n-balance").value);
+  const PS = parseFloat(document.getElementById("n-posSize").value);
+  const EP = parseFloat(document.getElementById("n-entryPrice").value);
+  const TP = selectedTP;
+  const res = document.getElementById("n-results");
+  const emp = document.getElementById("n-empty");
 
-  // Ganancia/Pérdida = posición * (|ΔP| / EP)
-  // Para LONG: ganancia si precio sube, pérdida si baja
-  // Para SHORT: ganancia si precio baja, pérdida si sube
+  if (!B||!PS||!EP||B<=0||PS<=0||EP<=0) {
+    res.style.display="none"; emp.style.display="block"; emp.textContent="INGRESÁ LOS DATOS PARA CALCULAR"; return;
+  }
+
+  const realLev   = PS / B;
+  const maxLev    = TP / B;
+  const tpPct     = Math.min((PS/TP)*100, 100);
+  const tpRest    = Math.max(0, TP-PS);
+  const priceMove = (B*EP)/PS;
+  const movePct   = (priceMove/EP)*100;
+  const liqPrice  = direction==="long" ? EP-priceMove : EP+priceMove;
+  const distPct   = Math.abs((liqPrice-EP)/EP)*100;
+  const riskColor = distPct<3?"#ff2d55":distPct<10?"#ff9500":distPct<25?"#ffd60a":"#30d158";
+  const riskLevel = distPct<3?"CRÍTICO":distPct<10?"ALTO":distPct<25?"MODERADO":"BAJO";
+  const levColor  = realLev>maxLev*0.8?"#ff2d55":realLev>maxLev*0.5?"#ff9500":realLev>5?"#ffd60a":"#30d158";
+  const barColor  = tpPct>90?"#ff2d55":tpPct>60?"#ff9500":"#30d158";
+
+  document.getElementById("n-lev-value").textContent = fmt(realLev,2)+"x";
+  document.getElementById("n-lev-value").style.color = levColor;
+  document.getElementById("n-lev-desc").textContent  = "$"+fmt(PS)+" posición con $"+fmt(B)+" saldo → "+fmt(realLev,1)+":1";
+  document.getElementById("n-tp-bar").style.width      = tpPct+"%";
+  document.getElementById("n-tp-bar").style.background = barColor;
+  document.getElementById("n-tp-pct-label").textContent= fmtPct(tpPct,1);
+  document.getElementById("n-m-pos").textContent      = "$"+fmt(PS);
+  document.getElementById("n-m-tp-rest").textContent  = "$"+fmt(tpRest);
+  document.getElementById("n-m-max-lev").textContent  = fmt(maxLev,1)+"x";
+
+  const mr = document.getElementById("n-main-result");
+  mr.style.borderLeftColor = riskColor;
+  mr.style.background      = riskColor+"0d";
+  document.getElementById("n-liq-price").textContent = "$"+fmt(liqPrice);
+  document.getElementById("n-liq-price").style.color = riskColor;
+  document.getElementById("n-liq-sub").textContent   = (direction==="long"?"↓ caída de ":"↑ suba de ")+fmtPct(distPct)+" desde $"+fmt(EP);
+  document.getElementById("n-risk-badge").textContent = riskLevel;
+  document.getElementById("n-risk-badge").style.color = riskColor;
+  document.getElementById("n-m-move").textContent     = "$"+fmt(priceMove);
+  document.getElementById("n-m-move").style.color     = riskColor;
+  document.getElementById("n-m-move-pct").textContent = fmtPct(movePct);
+  document.getElementById("n-m-move-pct").style.color = riskColor;
+
+  res.style.display="block"; emp.style.display="none";
+  calcTPSL("n", B, PS, EP, liqPrice);
+}
+
+// ════════════════════
+//    MODO INVERSO
+// ════════════════════
+function calcInverse() {
+  const B   = parseFloat(document.getElementById("i-balance").value);
+  const EP  = parseFloat(document.getElementById("i-entryPrice").value);
+  const LIQ = parseFloat(document.getElementById("i-liqPrice").value);
+  const TP  = selectedTP;
+  const res = document.getElementById("i-results");
+  const emp = document.getElementById("i-empty");
+
+  if (!B||!EP||!LIQ||B<=0||EP<=0||LIQ<=0) {
+    res.style.display="none"; emp.style.display="block"; emp.textContent="INGRESÁ LOS DATOS PARA CALCULAR"; return;
+  }
+  if (direction==="long" && LIQ>=EP) {
+    res.style.display="none"; emp.style.display="block";
+    emp.textContent="⚠ En LONG el precio de liquidación debe ser MENOR al precio de entrada"; return;
+  }
+  if (direction==="short" && LIQ<=EP) {
+    res.style.display="none"; emp.style.display="block";
+    emp.textContent="⚠ En SHORT el precio de liquidación debe ser MAYOR al precio de entrada"; return;
+  }
+
+  // Fórmula inversa: PS = B * EP / |EP - LIQ|
+  const priceMove = Math.abs(EP - LIQ);
+  const movePct   = (priceMove/EP)*100;
+  const calcPS    = (B*EP)/priceMove;
+  const exceedsTP = calcPS > TP;
+  const finalPS   = Math.min(calcPS, TP);
+  const realLev   = finalPS/B;
+  const tpPct     = Math.min((finalPS/TP)*100, 100);
+  const barColor  = tpPct>90?"#ff2d55":tpPct>60?"#ff9500":"#30d158";
+
+  document.getElementById("i-pos-value").textContent = "$"+fmt(finalPS);
+  document.getElementById("i-pos-sub").textContent   = "Apalancamiento "+fmt(realLev,2)+"x · usando "+fmtPct(tpPct,1)+" de tu Trading Power";
+  document.getElementById("i-lev").textContent       = fmt(realLev,2)+"x";
+  document.getElementById("i-dist").textContent      = fmtPct(movePct);
+  document.getElementById("i-tp-uso").textContent    = fmtPct(tpPct,1);
+  document.getElementById("i-max-loss").textContent  = "$"+fmt(B);
+  document.getElementById("i-price-move").textContent= "$"+fmt(priceMove);
+  document.getElementById("i-tp-bar").style.width      = tpPct+"%";
+  document.getElementById("i-tp-bar").style.background = barColor;
+  document.getElementById("i-tp-pct-label").textContent= fmtPct(tpPct,1);
+
+  const warnTP = document.getElementById("i-tp-warn");
+  if (exceedsTP) {
+    document.getElementById("i-tp-warn-val").textContent = fmt(TP);
+    warnTP.style.display = "block";
+  } else {
+    warnTP.style.display = "none";
+  }
+
+  res.style.display="block"; emp.style.display="none";
+  calcTPSL("i", B, finalPS, EP, LIQ);
+}
+
+// ════════════════════
+//    TP / SL
+// ════════════════════
+function calcTPSL(prefix, B, PS, EP, liqPrice) {
+  const tpPrice = parseFloat(document.getElementById(prefix+"-tp-price").value);
+  const slPrice = parseFloat(document.getElementById(prefix+"-sl-price").value);
+  const tpslDiv = document.getElementById(prefix+"-tpsl-results");
+  const hasTP   = tpPrice>0 && !isNaN(tpPrice);
+  const hasSL   = slPrice>0 && !isNaN(slPrice);
+
+  if (!hasTP && !hasSL) { tpslDiv.style.display="none"; return; }
+  tpslDiv.style.display="block";
 
   if (hasTP) {
-    const tpMove   = direction === "long" ? tpPrice - EP : EP - tpPrice;
-    const tpUSD    = PS * (Math.abs(tpMove) / EP);
-    const tpMovPct = (Math.abs(tpMove) / EP) * 100;
-    const tpBalPct = (tpUSD / B) * 100;
-    const tpNewBal = B + (tpMove >= 0 ? tpUSD : -tpUSD);
-    const valid    = tpMove > 0;
-
-    document.getElementById("tp-price-display").textContent = "$" + fmt(tpPrice);
-    document.getElementById("tp-usd").textContent      = (valid ? "+" : "⚠ −") + "$" + fmt(tpUSD);
-    document.getElementById("tp-pct-bal").textContent  = (valid ? "+" : "−") + fmtPct(tpBalPct);
-    document.getElementById("tp-move-pct").textContent = (valid ? "▲ " : "▼ ") + fmtPct(tpMovPct);
-    document.getElementById("tp-new-bal").textContent  = "$" + fmt(tpNewBal);
-    if (!valid) {
-      document.getElementById("tp-price-display").style.color = "#ff9500";
-      document.getElementById("tp-usd").textContent = "⚠ Precio incorrecto para " + direction;
-    }
+    const move  = direction==="long" ? tpPrice-EP : EP-tpPrice;
+    const usd   = PS*(Math.abs(move)/EP);
+    const pct   = (Math.abs(move)/EP)*100;
+    const valid = move>0;
+    document.getElementById(prefix+"-tp-display").textContent = "$"+fmt(tpPrice);
+    document.getElementById(prefix+"-tp-usd").textContent     = valid ? "+$"+fmt(usd) : "⚠ lado incorrecto";
+    document.getElementById(prefix+"-tp-pct-b").textContent   = valid ? "+"+fmtPct((usd/B)*100) : "—";
+    document.getElementById(prefix+"-tp-mov").textContent     = (valid?"▲ ":"▼ ")+fmtPct(pct);
+    document.getElementById(prefix+"-tp-newbal").textContent  = valid ? "$"+fmt(B+usd) : "—";
   } else {
-    ["tp-price-display","tp-usd","tp-pct-bal","tp-move-pct","tp-new-bal"].forEach(id => {
-      document.getElementById(id).textContent = "—";
+    ["-tp-display","-tp-usd","-tp-pct-b","-tp-mov","-tp-newbal"].forEach(s=>{
+      document.getElementById(prefix+s).textContent="—";
     });
   }
 
   if (hasSL) {
-    const slMove   = direction === "long" ? EP - slPrice : slPrice - EP;
-    const slUSD    = PS * (Math.abs(slMove) / EP);
-    const slMovPct = (Math.abs(slMove) / EP) * 100;
-    const slBalPct = (slUSD / B) * 100;
-    const slNewBal = B - slUSD;
-    const valid    = slMove > 0;
-
-    document.getElementById("sl-price-display").textContent = "$" + fmt(slPrice);
-    document.getElementById("sl-usd").textContent      = (valid ? "−$" : "⚠ ") + fmt(slUSD);
-    document.getElementById("sl-pct-bal").textContent  = (valid ? "−" : "") + fmtPct(slBalPct);
-    document.getElementById("sl-move-pct").textContent = (valid ? "▼ " : "▲ ") + fmtPct(slMovPct);
-    document.getElementById("sl-new-bal").textContent  = "$" + fmt(slNewBal);
-    if (!valid) {
-      document.getElementById("sl-price-display").style.color = "#ff9500";
-      document.getElementById("sl-usd").textContent = "⚠ Precio incorrecto para " + direction;
+    const move  = direction==="long" ? EP-slPrice : slPrice-EP;
+    const usd   = PS*(Math.abs(move)/EP);
+    const pct   = (Math.abs(move)/EP)*100;
+    const valid = move>0;
+    document.getElementById(prefix+"-sl-display").textContent = "$"+fmt(slPrice);
+    document.getElementById(prefix+"-sl-usd").textContent     = valid ? "−$"+fmt(usd) : "⚠ lado incorrecto";
+    document.getElementById(prefix+"-sl-pct-b").textContent   = valid ? "−"+fmtPct((usd/B)*100) : "—";
+    document.getElementById(prefix+"-sl-mov").textContent     = (valid?"▼ ":"▲ ")+fmtPct(pct);
+    document.getElementById(prefix+"-sl-newbal").textContent  = valid ? "$"+fmt(B-usd) : "—";
+    if (prefix==="n") {
+      const warnSL = document.getElementById("n-sl-warn");
+      const distToLiq = Math.abs(slPrice-liqPrice)/Math.abs(EP-liqPrice);
+      warnSL.style.display = (valid && distToLiq<0.15) ? "block" : "none";
     }
   } else {
-    ["sl-price-display","sl-usd","sl-pct-bal","sl-move-pct","sl-new-bal"].forEach(id => {
-      document.getElementById(id).textContent = "—";
+    ["-sl-display","-sl-usd","-sl-pct-b","-sl-mov","-sl-newbal"].forEach(s=>{
+      document.getElementById(prefix+s).textContent="—";
     });
+    if (prefix==="n") document.getElementById("n-sl-warn").style.display="none";
   }
 
-  // ── RATIO R/R ──
-  const rrDiv = document.getElementById("rr-value");
-  const rrSub = document.getElementById("rr-sub");
+  // R/R
+  const rrEl  = document.getElementById(prefix+"-rr-value");
+  const rrSub = document.getElementById(prefix+"-rr-sub");
   if (hasTP && hasSL) {
-    const tpMove = direction === "long" ? tpPrice - EP : EP - tpPrice;
-    const slMove = direction === "long" ? EP - slPrice : slPrice - EP;
-    const gain   = PS * (Math.abs(tpMove) / EP);
-    const loss   = PS * (Math.abs(slMove) / EP);
-    if (loss > 0 && tpMove > 0 && slMove > 0) {
-      const rr = gain / loss;
-      rrDiv.textContent = fmt(rr, 2) + ":1";
-      rrDiv.style.color = rr >= 2 ? "#30d158" : rr >= 1.5 ? "#ffd60a" : "#ff2d55";
-      rrSub.textContent = `Ganás $${fmt(gain)} por cada $${fmt(loss)} que arriesgás`;
+    const tpMove = direction==="long" ? tpPrice-EP : EP-tpPrice;
+    const slMove = direction==="long" ? EP-slPrice : slPrice-EP;
+    const gain   = PS*(Math.abs(tpMove)/EP);
+    const loss   = PS*(Math.abs(slMove)/EP);
+    if (loss>0 && tpMove>0 && slMove>0) {
+      const rr = gain/loss;
+      rrEl.textContent  = fmt(rr,2)+":1";
+      rrEl.style.color  = rr>=2?"#30d158":rr>=1.5?"#ffd60a":"#ff2d55";
+      rrSub.textContent = "Ganás $"+fmt(gain)+" por cada $"+fmt(loss)+" que arriesgás";
     } else {
-      rrDiv.textContent = "⚠ Inválido";
-      rrDiv.style.color = "#ff9500";
-      rrSub.textContent = "Revisá que el TP y SL estén del lado correcto";
+      rrEl.textContent="⚠ Inválido"; rrEl.style.color="#ff9500";
+      rrSub.textContent="Revisá que TP y SL estén del lado correcto";
     }
   } else {
-    rrDiv.textContent = "—";
-    rrSub.textContent = "Ingresá TP y SL para ver el ratio";
+    rrEl.textContent="—"; rrSub.textContent="Ingresá TP y SL para ver el ratio";
   }
 }
 
 // ── Init ──
-renderTPGrid();
-
-// ── PWA: Service Worker inline ──
-if ('serviceWorker' in navigator) {
-  const swCode = `
-    self.addEventListener('install', e => self.skipWaiting());
-    self.addEventListener('activate', e => clients.claim());
-    self.addEventListener('fetch', e => {
-      e.respondWith(fetch(e.request).catch(() => caches.match(e.request)));
-    });
-  `;
-  const swBlob = new Blob([swCode], {type: 'application/javascript'});
-  const swURL  = URL.createObjectURL(swBlob);
-  navigator.serviceWorker.register(swURL).catch(() => {});
-}
-
-// ── PWA: Botón "Agregar a pantalla de inicio" ──
-let deferredPrompt = null;
-window.addEventListener('beforeinstallprompt', (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
-  document.getElementById('install-btn').style.display = 'flex';
-});
-window.addEventListener('appinstalled', () => {
-  document.getElementById('install-btn').style.display = 'none';
-});
-function installApp() {
-  if (deferredPrompt) {
-    deferredPrompt.prompt();
-    deferredPrompt.userChoice.then(() => { deferredPrompt = null; });
-  }
-}
-</script>
-
-<!-- Botón instalar (visible solo en Android Chrome cuando aplica) -->
-<div id="install-btn" onclick="installApp()" style="
-  display: none; position: fixed; bottom: 24px; right: 20px;
-  background: #ff9500; color: #000;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 700; font-size: 0.95rem; letter-spacing: 0.08em;
-  padding: 12px 20px; cursor: pointer;
-  align-items: center; gap: 8px;
-  box-shadow: 0 4px 24px rgba(255,149,0,0.35);
-  z-index: 999;
-">
-  ⬇ INSTALAR APP
-</div>
-
-<!-- Instrucciones iOS (siempre visibles en Safari móvil) -->
-<div id="ios-hint" style="
-  display: none;
-  position: fixed; bottom: 0; left: 0; right: 0;
-  background: #1a1a1a; border-top: 1px solid rgba(255,149,0,0.3);
-  padding: 14px 20px 20px;
-  font-size: 0.62rem; color: rgba(240,237,232,0.6);
-  line-height: 1.8; text-align: center; z-index: 999;
-">
-  <span style="color:#ff9500; font-weight:600">Para instalar en iPhone:</span><br>
-  Tocá <strong>Compartir</strong> (□↑) → <strong>"Agregar a pantalla de inicio"</strong>
-  <div onclick="document.getElementById('ios-hint').style.display='none'"
-    style="margin-top:8px; color:rgba(240,237,232,0.35); cursor:pointer; font-size:0.6rem">
-    CERRAR
-  </div>
-</div>
-
-<script>
-// Mostrar hint iOS solo en Safari móvil
-const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
-const isSafari = /safari/i.test(navigator.userAgent) && !/chrome/i.test(navigator.userAgent);
-const isStandalone = window.navigator.standalone;
-if (isIOS && isSafari && !isStandalone) {
-  document.getElementById('ios-hint').style.display = 'block';
-}
+renderTPGrids();
 </script>
 </body>
 </html>
